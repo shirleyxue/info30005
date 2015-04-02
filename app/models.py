@@ -14,6 +14,7 @@ class User(db.Model):
     last_name = db.Column(db.String(64))
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String(120))
+    salt = db.Column(db.String(120))
 
 
     # create the user 
