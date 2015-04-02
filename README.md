@@ -5,4 +5,3 @@ Keep out - cool stuff
 ------------
 
 If you ain't a UniMelb student, tutor or associate - geddout before you see copyrighted ideas and awesome lines of code.
-Shirley read already. 
