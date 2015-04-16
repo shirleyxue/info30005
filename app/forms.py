@@ -1,9 +1,9 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, BooleanField, PasswordField
+from wtforms import StringField, BooleanField, PasswordField, TextAreaField
 from wtforms.validators import DataRequired, InputRequired, Email, Length, EqualTo, ValidationError
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from flask.ext.scrypt import check_password_hash, enbase64, debase64
-from .models import User
+from .models import User, Test
 
 
 # CREATE ALL FORM OBJECTS HERE (FLASK-WTF)
@@ -66,5 +66,13 @@ class RegistrationForm(Form):
         if user is not None:
             raise ValidationError("A user with that email already exists!")
 
+
+class TestDataForm(Form):
+
+    test_string = TextAreaField('test', validators=[DataRequired()])
+
+class ButtonForm(Form):
+
+    button = BooleanField()
 
 

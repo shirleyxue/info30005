@@ -1,12 +1,17 @@
-INFO30005 Project
+microblog
 =========
 
-Keep out - cool stuff
+A decently featured microblogging web application written in Python and Flask that I'm developing in my Flask Mega-Tutorial series that begins [here](http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world).
+
+Installation
 ------------
 
-Testing now
+The tutorial referenced above explains how to setup a virtual environment with all the required modules.
 
-If you ain't a UniMelb student, tutor or associate - geddout before you see copyrighted ideas and awesome lines of code.
+The sqlite database must also be created before the application can run, and the `db_create.py` script takes care of that. See the [Database tutorial](http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iv-database) for the details.
 
-Guidance:
-1. For the primary framwork of home page, please open bootstrap-3.3.2-dist folder and then open design_test.html in your browser.
+Running
+-------
+
+To run the application in the development web server just execute `run.py` with the Python interpreter from the flask virtual environment.
+

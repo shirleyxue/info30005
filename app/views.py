@@ -1,8 +1,8 @@
-from flask import render_template, flash, redirect, session, url_for, request, abort
+from flask import render_template, flash, redirect, session, url_for, request, abort, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, db, lm
-from .forms import LoginForm, RegistrationForm
-from .models import User
+from .forms import LoginForm, RegistrationForm, TestDataForm, ButtonForm
+from .models import User, Test
 
 
 @lm.user_loader
@@ -15,6 +15,34 @@ def load_user(id):
 def index():
     return render_template('index.html', title='Home', user=current_user)
 
+
+@app.route('/')
+@app.route('/test', methods=('GET', 'POST'))
+@login_required
+def test():
+
+    form = TestDataForm()
+
+    if form.validate_on_submit():
+        test_entry = Test(test_string = request.form['test_string'], user_id = current_user.id)
+        db.session.add(test_entry)
+        db.session.commit()
+        
+    test = Test.query.all()
+
+    return render_template('test.html', title='Test', form=form, user=current_user, data=test)
+
+@app.route('/delete/<int:id>')
+@login_required
+def delete(id):
+    post = Test.query.get(id)
+    if post is None:
+        return redirect(url_for('test'))
+    if post.author.id != current_user.id:
+        return redirect(url_for('test'))
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('test'))
 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
@@ -61,3 +89,5 @@ def logout():
 @login_required
 def topsecret():
     return render_template('topsecret.html', title='Top Secret', user=current_user)
+
+

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{%- block content -%}
+	{% import "formhelpers.html" as fields %}
+	<div id="login_container">
+		<div id="test_title"><p><h3>Post something here, 
+			{{ user.first_name }}
+		</h3></p></div>
+		<form method="POST" action="/test">
+			{{ form.hidden_tag() }}
+			{{ fields.render(form.test_string, placeholder="Post a comment..") }}
+		  <p>
+		  <input class="btn" type="submit" value="Post"></a>
+		  </p>
+		</form>
+	</div>
+
+	<h2>Here are all the comments!</h2>
+	{% for t in data %}
+	<p>
+		{{ t.author.first_name }}: 
+		{{ t.test_string }}
+		{% if t.author.id == user.id %}
+		
+			<form action="{{ url_for('delete', id=t.id) }}">
+    			<input type="submit" value="Delete">
+			</form>
+		{% endif %}
+	</p>
+	{% endfor %}
+
+{%- endblock -%}
