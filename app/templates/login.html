@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    {% import "formhelpers.html" as fields %}
+    <div id="login_container">
+        <div id="login_title"><p>Login</p></div>
+        <form method="post" action="{{ url_for('login') }}">
+            {{ form.hidden_tag() }}
+            {{ fields.render(form.email, placeholder="Your email") }}
+            {{ fields.render(form.password, placeholder="Your password") }}
+          <p>
+          <input class="btn" type="submit" value="Login"></p>
+        </form>
+    </div>
+{% endblock %}
