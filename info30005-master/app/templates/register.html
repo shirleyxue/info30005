@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{%- block content -%}
+	{% import "formhelpers.html" as fields %}
+	<div id="login_container">
+		<div id="register_title"><p>Register</p></div>
+		<form method="post" action="{{ url_for('register') }}">
+			{{ form.hidden_tag() }}
+			{{ fields.render(form.first_name, placeholder="Firstname") }}
+			{{ fields.render(form.last_name, placeholder="Surname") }}
+			{{ fields.render(form.email, placeholder="Your email") }}
+			{{ fields.render(form.password, placeholder="Password") }}
+			{{ fields.render(form.confirm, placeholder="Confirm password") }}
+		  <p>
+		  <input class="btn" type="submit" value="register"></a>
+		  </p>
+		</form>
+	</div>
+{%- endblock -%}
