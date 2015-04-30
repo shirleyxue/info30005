@@ -1,5 +1,5 @@
 flask
 *.pyc
 app.db
-.DS_Store
+**/.DS_Store
 db_repository

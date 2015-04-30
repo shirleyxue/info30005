@@ -10,7 +10,12 @@ class Test(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     test_string = db.Column(db.Text(1000))
+
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    author = db.relationship('User', backref=db.backref('comments', lazy='dynamic'))
+
+    def __init__(self, user):
+        self.author = user
 
 # the user class
 class User(db.Model):
@@ -24,8 +29,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String(120))
     salt = db.Column(db.String(120))
-    posts = db.relationship('Test', backref='author', lazy='dynamic')
-
+    
 
     # create the user 
     def __init__(self, password):

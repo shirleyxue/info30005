@@ -71,8 +71,4 @@ class TestDataForm(Form):
 
     test_string = TextAreaField('test', validators=[DataRequired()])
 
-class ButtonForm(Form):
-
-    button = BooleanField()
-
 

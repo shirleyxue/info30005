@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, session, url_for, request, abort, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, db, lm
-from .forms import LoginForm, RegistrationForm, TestDataForm, ButtonForm
+from .forms import LoginForm, RegistrationForm, TestDataForm
 from .models import User, Test
 
 
@@ -24,8 +24,9 @@ def test():
     form = TestDataForm()
 
     if form.validate_on_submit():
-        test_entry = Test(test_string = request.form['test_string'], user_id = current_user.id)
-        db.session.add(test_entry)
+        new_test_entry = Test(current_user)
+        form.populate_obj(new_test_entry)
+        db.session.add(new_test_entry)
         db.session.commit()
         
     test = Test.query.all()
