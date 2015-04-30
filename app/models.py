@@ -3,6 +3,20 @@ from datetime import datetime
 from flask.ext.scrypt import generate_password_hash, generate_random_salt, check_password_hash, enbase64, debase64
 
 
+#test data
+class Test(db.Model):
+
+    __tablename__ = 'test'
+
+    id = db.Column(db.Integer, primary_key=True)
+    test_string = db.Column(db.Text(1000))
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    author = db.relationship('User', backref=db.backref('comments', lazy='dynamic'))
+
+    def __init__(self, user):
+        self.author = user
+
 # the user class
 class User(db.Model):
 
@@ -14,7 +28,8 @@ class User(db.Model):
     last_name = db.Column(db.String(64))
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String(120))
-
+    salt = db.Column(db.String(120))
+    
 
     # create the user 
     def __init__(self, password):
@@ -42,5 +57,5 @@ class User(db.Model):
             return str(self.id)  # python 3
 
     def __repr__(self):
-        return '<User %r>' % (self.nickname)
+        return '<User %r>' % (self.email)
 
